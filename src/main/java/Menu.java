@@ -15,7 +15,6 @@ public class Menu {
 
     public static boolean main(String pathFile)  {
        List<String> inputFile = File.readText(pathFile);
-
        try {
            SelectHotel(inputFile);
            return true;

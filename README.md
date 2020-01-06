@@ -3,7 +3,7 @@ fisrt-exercise-tw-final
 Exercício para a segunda etapa do programa Desenvolve da ThoughtWorks.
 Foi construído um programa que busca o hotel mais barato de acordo com três opções disponíveis.
 O projeto foi dividido em duas pastas a de testes e a de classes com seus respectivos métodos, a classe Hotel é a principal. Nela contém o método searchHotel, que nele podemos fazer a pesquisa de qual é o hotel mais barato ou o com melhor qualificação, e contém métodos secundários que auxiliam no tratamento da entrada ou na resolução do problema. A classe File foi criada para tratar o arquivo de entrada que é solicitado no exercício e a classe Menu serve para inicializar o programa.
-
+****
 As classes de testes foram utilizadas para testar a entrada dos métodos criados e para realizar alguns testes para confirmar que o retorno dos secundários estavam corretos.
 
 Algumas colocações:
