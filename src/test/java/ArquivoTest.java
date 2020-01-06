@@ -10,13 +10,13 @@ import static org.junit.Assert.*;
 public class ArquivoTest {
 
     @Test
-    public void testArquivo() throws ParseException {
+    public void testFile() throws ParseException {
         Arquivo a = new Arquivo();
         //given
         String input = "arquivoTeste.txt";
 
         //when
-        List<String> resultHotel = a.lerTexto(input);
+        List<String> resultHotel = a.readText(input);
         System.out.println(resultHotel);
 
         //then
@@ -24,14 +24,14 @@ public class ArquivoTest {
     }
 
     @Test
-    public void testWhenArquivoIsEmpty() throws ParseException {
+    public void testWhenFileIsEmpty() throws ParseException {
         Arquivo a = new Arquivo();
         //given
         String input = "";
         List<String> listEmpty = new ArrayList<>();
 
         //when
-        List<String> resultHotel = a.lerTexto(input);
+        List<String> resultHotel = a.readText(input);
         System.out.println(resultHotel);
 
         //then

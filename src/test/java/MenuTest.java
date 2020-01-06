@@ -4,7 +4,7 @@ import java.text.ParseException;
 
 public class MenuTest {
     @Test
-    public void testArquivoIncorreto() throws ParseException {
+    public void testIncorrectFile() throws ParseException {
         Menu m = new Menu();
 
         //given
@@ -12,14 +12,13 @@ public class MenuTest {
 
         //when
         m.main(input);
-        //System.out.println(resultHotel);
 
         //then
-        //assertNotEquals(resultHotel, "teste");
+        assertNotEquals(resultHotel, "The file format is incorrect try another!");
     }
 
     @Test
-    public void testArquivoCorreto() throws ParseException {
+    public void testCorrectFile() throws ParseException {
         Menu m = new Menu();
 
         //given
@@ -27,7 +26,6 @@ public class MenuTest {
 
         //when
         m.main(input);
-        //System.out.println(resultHotel);
 
         //then
         //assertNotEquals(resultHotel, "teste");
