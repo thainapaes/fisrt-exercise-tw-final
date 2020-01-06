@@ -6,20 +6,20 @@ import java.util.Scanner;
 
 public class Menu {
 
-    public static void OpcaoGeral(List<String> entrada) throws ParseException {
+    public static void SelectHotel(List<String> inputFile) throws ParseException {
         Hotel h = new Hotel();
-        entrada.remove(0);
-        for (String e: entrada) {
-            String resposta = h.sharedHotel(e);
-            System.out.println(resposta);
+        inputFile.remove(0);
+        for (String e: inputFile) {
+            String result = h.searchHotel(e);
+            System.out.println(result);
         }
 
     }
 
-    public static void main(String pathArquivo)  {
-       List<String> entrada = Arquivo.lerTexto(pathArquivo);
+    public static void main(String pathFile)  {
+       List<String> inputFile = Arquivo.readText(pathFile);
        try {
-           OpcaoGeral(entrada);
+           SelectHotel(inputFile);
        } catch (Exception e) {
            e.printStackTrace();
        }

@@ -8,21 +8,21 @@ import java.util.List;
 
 public class Arquivo {
 
-    public static List<String> lerTexto(String pCaminhoArquivo) {
+    public static List<String> readText(String pCaminhoArquivo) {
         boolean flag = true;
-        String[] retorno = null;
+        //String[] retorno = null;
         List<String> r = new ArrayList<>();
         try {
             BufferedReader buff = new BufferedReader(new FileReader(pCaminhoArquivo));
-            String linha = "";
+            String line = "";
             while (flag) {
-                if(linha != null){
-                    r.add(linha);
-                    System.out.println(linha);
+                if(line != null){
+                    r.add(line);
+                    //System.out.println(line);
                 } else {
                     break;
                 }
-                linha = buff.readLine();
+                line = buff.readLine();
             }
 
         } catch (IOException e) {

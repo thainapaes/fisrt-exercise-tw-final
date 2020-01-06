@@ -3,38 +3,43 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Hotel {
-    // Regular: 16Mar2009(mon),17Mar2009(tues),18Mar2009(wed)
-    public String sharedHotel(String info) throws ParseException {
-        String resposta;
-        List<Integer> novo = new ArrayList<>();
+    
+    public String searchHotel(String info) throws ParseException {
+        String answer;
+        List<Integer> priceSet = new ArrayList<>();
         String[] infoS = info.split(":");
         if (infoS[0].equals("Regular")) {
             List<Integer> priceW = Arrays.asList(110, 160, 220);
             List<Integer> priceWnd = Arrays.asList(90, 60, 150);
             String[] dayS = infoS[1].split(",");
-            //int[] retornoFunc = dayOfWeek(dayS);
-            novo = precosAtt(dayOfWeek(dayS), priceW, priceWnd);
-            //novo.stream().min(Integer::compare).get();
+            priceSet = priceUpdate(dayOfWeek(dayS), priceW, priceWnd);
         } else if (infoS[0].equals("Rewards")) {
             List<Integer> priceW = Arrays.asList(80, 110, 100);
             List<Integer> priceWnd = Arrays.asList(80, 50, 40);
             String[] dayS = infoS[1].split(",");
-            //int[] retornoFunc = dayOfWeek(dayS);
-            novo = precosAtt(dayOfWeek(dayS), priceW, priceWnd);
+            priceSet = priceUpdate(dayOfWeek(dayS), priceW, priceWnd);
         } else {
-            resposta = "Arquivo com informações incorretas";
-            return resposta;
+            answer = "The file format is incorrect try another!";
+            return answer;
         }
-        resposta = qualHotel(novo);
-        return resposta;
+        answer = whichHotel(priceSet);
+        return answer;
     }
+	
+	/*
+	Nesse método é possível determinar qual são os dias da semana das datas selecionadas pelo cliente.
+	A entrada é um array de String com os dias selecionados pelo cliente, dentro do programa tem uma verificação
+	do mês escolhido e apartir daí a string da vez é modificada para conseguir verificar qual é o dia da semana.
+	A saída é um array de int com a sequência dos dias selecionados, todos em ordem de entrada e de acordo com GregorianCalendar.DAY_OF_WEEK.
+	*/
 
     private int[] dayOfWeek(String[] days) throws ParseException {
-        int[] diasHospedagem = new int[days.length];
+        int[] daysInHotel = new int[days.length];
+		//interator para saber em qual posição estamos do array
         int f = 0;
         for (String day : days) {
-            String mes = day.substring(3, 6);
-            switch (mes) {
+            String month = day.substring(3, 6);
+            switch (month) {
                 case "Jan":
                     day = day.replaceAll("Jan", "/01/");
                     break;
@@ -76,57 +81,66 @@ public class Hotel {
                     break;
             }
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            Date diaD = sdf.parse(day);
+            Date dayParse = sdf.parse(day);
             GregorianCalendar gc = new GregorianCalendar();
-            gc.setTime(diaD);
-            int diaDaSemana = gc.get(GregorianCalendar.DAY_OF_WEEK);
-            diasHospedagem[f] = diaDaSemana;
+            gc.setTime(dayParse);
+            int inTheWeek = gc.get(GregorianCalendar.DAY_OF_WEEK);
+            daysInHotel[f] = inTheWeek;
             f++;
         }
-        return diasHospedagem;
+        return daysInHotel;
     }
 
-    public String qualHotel(List<Integer> novo) {
+	/*
+	Esse método retorna qual é o melhor hotel para o cliente em questão.
+	A entrada é um array com os preços já atualizados de acordo com a estádia desejada, quantidade de dias. Nesse método a ordem de hoteis foi respeitada de acordo com a classificação
+	dos hoteis, por exemplo: 1. Lakewood (Nota: 3) 2. Bridgewood (Nota: 4) 3. Ridgewood (Nota: 5). 
+	A saída é qual hotel é o melhor hotel
+	*/
+
+    public String whichHotel(List<Integer> pricesGroup) {
         String hotel = null;
+		//foi necessário criar as flag para ter um controle do que já foi comparado, evitando realizar comparações desnecessárias
         boolean flag = false;
         boolean flagAux = false;
-        int posicao = 0;
+		//foi criada para verificar qual é o hotel que foi selecionado no final das comparações, por exemplo se a posição está no 1 então o hotel selecionado foi o Bridgewood
+        int position = 0;
 
-        int dd = Integer.compare(novo.get(0), novo.get(1));
-        int da = Integer.compare(novo.get(0), novo.get(2));
-        int db = Integer.compare(novo.get(1), novo.get(2));
+        int lakeWbridg = Integer.compare(pricesGroup.get(0), pricesGroup.get(1));
+        int lakeWridg = Integer.compare(pricesGroup.get(0), pricesGroup.get(2));
+        int bridgWridg = Integer.compare(pricesGroup.get(1), pricesGroup.get(2));
 
-        if (dd == 0) {
-            posicao = 1;
+        if (lakeWbridg == 0) {
+            position = 1;
             flag = true;
-        } else if (da == 0 || db == 0) {
-            posicao = 2;
+        } else if (lakeWridg == 0 || bridgWridg == 0) {
+            position = 2;
             flag = true;
         }
 
         if (!flag) {
-            if (dd == (-1)) {
-                posicao = 0;
+            if (lakeWbridg == (-1)) {
+                position = 0;
                 flagAux = true;
-            } else if (db == (-1)) {
-                posicao = 1;
+            } else if (bridgWridg == (-1)) {
+                position = 1;
                 flagAux = true;
-            } else if (da == (-1)) {
-                posicao = 0;
+            } else if (lakeWridg == (-1)) {
+                position = 0;
                 flagAux = true;
             }
         }
         if (!flagAux) {
-            if (dd == 1) {
-                posicao = 1;
-            } else if (da == 1) {
-                posicao = 2;
-            } else if (db == 1) {
-                posicao = 2;
+            if (lakeWbridg == 1) {
+                position = 1;
+            } else if (lakeWridg == 1) {
+                position = 2;
+            } else if (bridgWridg == 1) {
+                position = 2;
             }
         }
 
-        switch (posicao) {
+        switch (position) {
             case 0:
                 hotel = "Lakewood";
                 break;
@@ -143,43 +157,46 @@ public class Hotel {
         return hotel;
     }
 
-    public List<Integer> precosAtt(int[] retornoFunc, List<Integer> priceW, List<Integer> priceWnd) {
-        //List<Integer> retorno = priceW;
-        List<Integer> retorno = new ArrayList<>();
+	/*
+	Esse método atualiza os preços de acordo com a quantidade de dias que o usuário for passar no hotel.
+	*/
+
+    public List<Integer> priceUpdate(int[] entryFunc, List<Integer> priceW, List<Integer> priceWnd) {
+        List<Integer> updateAnswer = new ArrayList<>();
         int v = 0;
-        for (int dias : retornoFunc) {
-            if (dias >= 2 && dias < 7) {
+        for (int d : entryFunc) {
+            if (d >= 2 && d < 7) {
                 if (v == 0) {
                     for (int i = 0; i < priceW.size(); i++) {
-                        int s = priceW.get(i);
-                        retorno.add(s);
+                        int wFirst = priceW.get(i);
+                        updateAnswer.add(wFirst);
                     }
                     v++;
                 } else {
                     for (int i = 0; i < priceW.size(); i++) {
                         int w = priceW.get(i);
-                        w = w + retorno.get(i);
-                        retorno.set(i, w);
+                        w = w + updateAnswer.get(i);
+                        updateAnswer.set(i, w);
                     }
                 }
-            } else if (dias == 1 || dias == 7) {
+            } else if (d == 1 || d == 7) {
                 if (v == 0) {
                     for (int i = 0; i < priceWnd.size(); i++) {
-                        int w = priceWnd.get(i);
-                        retorno.add(w);
+                        int wndFirst = priceWnd.get(i);
+                        updateAnswer.add(wndFirst);
                     }
                     v++;
                 } else {
                     for (int i = 0; i < priceWnd.size(); i++) {
-                        int w = priceWnd.get(i);
-                        w = w + retorno.get(i);
-                        retorno.set(i, w);
+                        int wnd = priceWnd.get(i);
+                        wnd = wnd + updateAnswer.get(i);
+                        updateAnswer.set(i, wnd);
                     }
                 }
 
             }
 
         }
-        return retorno;
+        return updateAnswer;
     }
 }
