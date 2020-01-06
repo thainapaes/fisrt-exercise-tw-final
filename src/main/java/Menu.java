@@ -1,8 +1,5 @@
-import java.io.IOException;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Menu {
 
@@ -17,7 +14,7 @@ public class Menu {
     }
 
     public static void main(String pathFile)  {
-       List<String> inputFile = Arquivo.readText(pathFile);
+       List<String> inputFile = File.readText(pathFile);
        try {
            SelectHotel(inputFile);
        } catch (Exception e) {

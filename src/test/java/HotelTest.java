@@ -33,7 +33,7 @@ public class HotelTest {
         String resultHotel = h.searchHotel(input);
 
         //then
-        assertEquals(resultHotel, null);
+        assertEquals(resultHotel, "The file format is incorrect try another!");
     }
 
     @Test
@@ -110,12 +110,12 @@ public class HotelTest {
         System.out.println(resultHotel);
 
         //then
-        assertEquals(resultHotel, "Bridgewood");
+        assertEquals(resultHotel, "Ridgewood");
     }
 	
 	@Test
 	@Ignore
-    public void mesEntregue() throws ParseException {
+    public void testChosenMonth() throws ParseException {
         //given
         String diaEscolhido = "20/03/2009";
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -128,7 +128,7 @@ public class HotelTest {
 
     @Test
 	@Ignore
-    public void soma() {
+    public void testSum() {
         List<Integer> integers = Arrays.asList(1, 2, 3, 4, 5);
         List<Integer> novo = new ArrayList<>();
         Integer sum = integers.stream()

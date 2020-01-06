@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Arquivo {
+public class File {
 
     public static List<String> readText(String pCaminhoArquivo) {
         boolean flag = true;
