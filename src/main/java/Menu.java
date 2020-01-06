@@ -13,12 +13,15 @@ public class Menu {
 
     }
 
-    public static void main(String pathFile)  {
+    public static boolean main(String pathFile)  {
        List<String> inputFile = File.readText(pathFile);
+
        try {
            SelectHotel(inputFile);
+           return true;
        } catch (Exception e) {
            e.printStackTrace();
+           return false;
        }
 
     }

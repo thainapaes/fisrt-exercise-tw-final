@@ -27,15 +27,15 @@ public class Hotel {
     }
 	
 	/*
-	Nesse método é possível determinar qual são os dias da semana das datas selecionadas pelo cliente.
-	A entrada é um array de String com os dias selecionados pelo cliente, dentro do programa tem uma verificação
-	do mês escolhido e apartir daí a string da vez é modificada para conseguir verificar qual é o dia da semana.
-	A saída é um array de int com a sequência dos dias selecionados, todos em ordem de entrada e de acordo com GregorianCalendar.DAY_OF_WEEK.
+	    Nesse método é possível determinar quais são os dias da semana das datas selecionadas pelo cliente.
+        A entrada é um String[] com os dias selecionados pelo cliente, que é tratado a partir de uma verificação onde é identificado
+        qual foi o mês escolhido e com algumas modificações qual é o dia da semana desta data em questão.
+        A saída é um int[] com a sequência dos dias selecionados, todos em ordem de entrada e de acordo com GregorianCalendar.DAY_OF_WEEK.
 	*/
 
     private int[] dayOfWeek(String[] days) throws ParseException {
         int[] daysInHotel = new int[days.length];
-		//interator para saber em qual posição estamos do array
+		//interator para saber em qual posição está sendo utilizada no array
         int f = 0;
         for (String day : days) {
             String month = day.substring(3, 6);
@@ -92,15 +92,16 @@ public class Hotel {
     }
 
 	/*
-	Esse método retorna qual é o melhor hotel para o cliente em questão.
-	A entrada é um array com os preços já atualizados de acordo com a estádia desejada, quantidade de dias. Nesse método a ordem de hoteis foi respeitada de acordo com a classificação
-	dos hoteis, por exemplo: 1. Lakewood (Nota: 3) 2. Bridgewood (Nota: 4) 3. Ridgewood (Nota: 5). 
-	A saída é qual hotel é o melhor hotel
+	    Esse método retorna qual é o melhor hotel para o cliente em questão.
+        A entrada é um List com os preços já atualizados de acordo com a estádia desejada.
+        Nesse método a ordem de hotéis foi respeitada de acordo com a suas classificações
+        , por exemplo: 1. Lakewood (Nota: 3) 2. Bridgewood (Nota: 4) 3. Ridgewood (Nota: 5).
+        A saída é qual é a melhor escolha de hotel para hospedagem.
 	*/
 
     public String whichHotel(List<Integer> pricesGroup) {
         String hotel = null;
-		//foi necessário criar as flag para ter um controle do que já foi comparado, evitando realizar comparações desnecessárias
+		//foi necessário criar as flag para ter um controle do que já foi comparado, evitando comparações desnecessárias
         boolean flag = false;
         boolean flagAux = false;
 		//foi criada para verificar qual é o hotel que foi selecionado no final das comparações, por exemplo se a posição está no 1 então o hotel selecionado foi o Bridgewood
@@ -158,7 +159,11 @@ public class Hotel {
     }
 
 	/*
-	Esse método atualiza os preços de acordo com a quantidade de dias que o usuário for passar no hotel.
+        Esse método atualiza os preços de acordo com a quantidade de dias que o usuário for passar no hotel.
+        Esse método atualiza os preços de acordo com a quantidade de dias que o cliente pretender ficar hospedado no hotel.
+        A entrada é composto por um int[] que são os dias da semana que a pessoa vai passar, um List que apresenta os preços durante a semana
+        e outro List que apresenta os preços durante o fim de semana. Esses List's são montados de acordo com o tipo de cliente.
+        Sua saída é um List com o valor a ser cobrado de cada hotel.
 	*/
 
     public List<Integer> priceUpdate(int[] entryFunc, List<Integer> priceW, List<Integer> priceWnd) {

@@ -1,6 +1,7 @@
 import org.junit.Test;
 
 import java.text.ParseException;
+import static org.junit.Assert.*;
 
 public class MenuTest {
     @Test
@@ -8,13 +9,13 @@ public class MenuTest {
         Menu m = new Menu();
 
         //given
-        String input = "arquivoTeste.txt";
+        String input = "arquivoIncorreto.txt";
 
         //when
-        m.main(input);
+        boolean resultBool = m.main(input);
 
         //then
-        //assertEquals(resultHotel, "The file format is incorrect try another!");
+        assertTrue(resultBool);
     }
 
     @Test
@@ -25,9 +26,9 @@ public class MenuTest {
         String input = "arquivoCorreto.txt";
 
         //when
-        m.main(input);
+        boolean resultBool = m.main(input);
 
         //then
-        //assertNotEquals(resultHotel, "teste");
+        assertTrue(resultBool);
     }
 }

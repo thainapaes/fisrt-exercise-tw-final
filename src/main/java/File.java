@@ -10,7 +10,6 @@ public class File {
 
     public static List<String> readText(String pCaminhoArquivo) {
         boolean flag = true;
-        //String[] retorno = null;
         List<String> r = new ArrayList<>();
         try {
             BufferedReader buff = new BufferedReader(new FileReader(pCaminhoArquivo));
@@ -18,7 +17,6 @@ public class File {
             while (flag) {
                 if(line != null){
                     r.add(line);
-                    //System.out.println(line);
                 } else {
                     break;
                 }

@@ -27,7 +27,7 @@ public class FileTest {
     public void testWhenFileIsInCorrect() throws ParseException {
         File a = new File();
         //given
-        String input = "arquivoTeste.txt";
+        String input = "arquivoIncorreto.txt";
 
         //when
         List<String> resultHotel = a.readText(input);
